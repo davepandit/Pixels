@@ -1,14 +1,16 @@
 import { useState,useEffect } from 'react'
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { fetchDataFromApi } from "./utils/api";
 import { useSelector, useDispatch } from "react-redux";
 import { getApiConfiguration } from "./store/homeSlice";
+import fetchDataFromAPI from "./utils/api"
 
+import Header from "./components/header/Header"
+import Footer from "./components/footer/Footer"
 import Home from './pages/home/Home';
 import Error from './pages/error/Error';
 import LeaderBoard from './pages/leaderboard/LeaderBoard';
 import Videos from './pages/videos/Videos';
-
+import SearchResults from './pages/searchResults/SearchResults';
 
 
 function App() {
@@ -18,27 +20,31 @@ function App() {
   console.log(url);
 
   useEffect(()=>{
-    fetchApiConfig();
+    fetchAPIConfig()
   },[])
 
-  const fetchApiConfig = ()=>{
-      fetchDataFromApi("/search/Nature")
-        .then((result)=>{
-          console.log("here goes the result")
-          console.log(result)
-        })
-        .catch((error)=>{
-          console.log(error)
-        })
-
+  const fetchAPIConfig = () =>{
+    fetchDataFromAPI('Nature')
+    .then((res)=>{
+      console.log(res)
+    })
+    .catch((error)=>{
+      console.log(error)
+    })
   }
-  
 
   return (
     <>
-      <div>
-        PIXELS
-      </div>
+      <BrowserRouter>
+      <Header />
+      <Routes>
+        <Route path='/' element={<Home />} />   
+        <Route path="/search/:query" element={<SearchResults />} />
+        <Route path="*" element={<Error />} />
+      </Routes>
+      <Footer />
+    
+    </BrowserRouter>
     </>
   )
 }

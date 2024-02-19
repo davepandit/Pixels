@@ -1,24 +1,18 @@
-import axios from "axios"
+import { createClient } from 'pexels';
+const PIXELS_KEY=import.meta.env.PIXELS_API_KEY
 
-const BASE_URL="https://api.pexels.com/v1/"
-const PIXELS_TOKEN=import.meta.env.PIXELS_API_KEY
+const client = createClient("");
 
-const headers = {
-    Authorization: PIXELS_TOKEN
-};
-
-export const fetchDataFromApi = async (url,params) => {
+const fetchDataFromAPI = async(endpoint) =>{
     try {
-        const { data } = await axios.get(BASE_URL + url, 
-            {
-                headers:headers,
-                params:params,
-            
-            });
-            
-        return data;
-    } catch (err) {
-        console.log(err);
-        return err;
+        const query =`${endpoint}`
+        const data = await client.photos.search({ query, per_page: 1 })
+        return data
+        
+    } catch (error) {
+        console.log(error)
     }
-};
+    
+}
+
+export default fetchDataFromAPI
