@@ -1,7 +1,9 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState={
-    url:{},
+    url:{
+        name:"dave"
+    },
 }
 
 export const homeSlice=createSlice({
