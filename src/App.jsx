@@ -11,6 +11,7 @@ import Error from './pages/error/Error';
 import LeaderBoard from './pages/leaderboard/LeaderBoard';
 import Videos from './pages/videos/Videos';
 import SearchResults from './pages/searchResults/SearchResults';
+import HeroBanner from './pages/home/herobanner/HeroBanner';
 
 
 function App() {
@@ -36,7 +37,10 @@ function App() {
   return (
     <>
       <BrowserRouter>
-      <Header />
+      <div className='relative '>
+        <Header />
+        <HeroBanner/>
+      </div>   
       <Routes>
         <Route path='/' element={<Home />} />   
         <Route path="/search/:query" element={<SearchResults />} />
